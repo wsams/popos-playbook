@@ -12,10 +12,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3.1
+        uses: actions/checkout@v4.1.7
 
       - name: Run release-please
-        uses: google-github-actions/release-please-action@v4.0.0
+        uses: google-github-actions/release-please-action@v4.1.3
         with:
           release-type: ansible
           package-name: popos-playbook
