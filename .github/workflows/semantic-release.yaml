@@ -17,7 +17,7 @@ jobs:
       - name: Run release-please
         uses: googleapis/release-please-action@v4.1.3
         with:
-          release-type: ansible
+          release-type: simple
           package-name: popos-playbook
         env:
           GITHUB_TOKEN: ${{ secrets.Z_GITHUB_TOKEN }}
