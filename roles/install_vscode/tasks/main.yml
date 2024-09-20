@@ -1,0 +1,29 @@
+---
+- name: Add Microsoft GPG key for Visual Studio Code
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+
+- name: Add Visual Studio Code repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+    state: present
+    filename: "vscode"
+  become: yes
+
+- name: Update apt package index
+  apt:
+    update_cache: yes
+
+- name: Install Visual Studio Code
+  apt:
+    name: code
+    state: present
+  become: yes
+
+- name: Ensure the VSCode command line tool is available
+  command: which code
+  register: code_installed
+  failed_when: code_installed.rc != 0
+  changed_when: false
+

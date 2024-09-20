@@ -1,0 +1,7 @@
+---
+- name: Set Fish as default shell for user running the playbook
+  user:
+    name: "{{ ansible_env.USER }}"
+    shell: /usr/bin/fish
+    update_password: on_create
+

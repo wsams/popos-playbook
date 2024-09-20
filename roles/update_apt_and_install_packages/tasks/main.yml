@@ -1,0 +1,28 @@
+---
+- name: Update APT package cache
+  apt:
+    update_cache: yes
+
+- name: Install base packages
+  apt:
+    name:
+      - alsa-base
+      - ansible
+      - ansible-lint
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - fish
+      - gimp
+      - git
+      - gnome-tweaks
+      - inkscape
+      - pavucontrol
+      - shutter
+      - software-properties-common
+      - steam
+      - steam-devices
+      - vim
+      - vlc
+    state: present
+

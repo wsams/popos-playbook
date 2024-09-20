@@ -1,0 +1,21 @@
+---
+- name: Add Signal GPG key
+  apt_key:
+    url: https://updates.signal.org/desktop/apt/keys.asc
+    state: present
+
+- name: Add Signal repository to apt sources list
+  apt_repository:
+    repo: "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main"
+    state: present
+    filename: "signal-messenger"
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install Signal Messenger
+  apt:
+    name: signal-desktop
+    state: present
+

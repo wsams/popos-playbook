@@ -1,0 +1,6 @@
+---
+- name: Generate a timestamp
+  command: date +"%Y%m%d%H%M%S"
+  register: timestamp
+  changed_when: false
+

@@ -1,0 +1,13 @@
+---
+- name: Pop!_OS setup
+  hosts: localhost
+  become: true
+  roles:
+    - role: generate_timestamp
+    - role: update_apt_and_install_packages
+    - role: set_fish_default_shell
+    - role: override_capslock_to_escape
+    - role: install_vscode
+    - role: install_jetbrains_mono_font
+    - role: install_signal_messenger
+    - role: install_docker

@@ -1,0 +1,30 @@
+---
+- name: Backup original XKB settings file
+  copy:
+    src: /usr/share/X11/xkb/symbols/pc
+    dest: /usr/share/X11/xkb/symbols/pc.bak-{{ timestamp.stdout }}
+    remote_src: yes
+
+- name: Modify XKB settings to map Caps Lock to Escape
+  replace:
+    path: /usr/share/X11/xkb/symbols/pc
+    regexp: "key <CAPS>.*"
+    replace: "key <CAPS> { [ Escape ] };"
+    backup: yes
+
+- name: Apply new keyboard layout
+  command: setxkbmap
+
+- name: Backup original XKB settings file
+  copy:
+    src: /etc/default/keyboard
+    dest: /etc/default/keyboard.bak-{{ timestamp.stdout }}
+    remote_src: yes
+
+- name: Ensure Caps Lock is remapped to Escape on system start
+  lineinfile:
+    path: /etc/default/keyboard
+    regexp: "^XKBOPTIONS="
+    line: 'XKBOPTIONS="caps:escape"'
+    create: yes
+

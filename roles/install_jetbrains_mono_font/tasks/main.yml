@@ -1,0 +1,36 @@
+---
+- name: Install required packages for downloading fonts
+  apt:
+    name: unzip
+    state: present
+
+- name: Create the destination directory for JetBrains Mono
+  file:
+    path: /usr/share/fonts/jetbrains-mono
+    state: directory
+    mode: '0755'
+    owner: root
+    group: root
+
+- name: Download JetBrains Mono font
+  get_url:
+    url: https://download.jetbrains.com/fonts/JetBrainsMono-2.304.zip
+    dest: /tmp/JetBrainsMono.zip
+
+- name: Unzip JetBrains Mono font
+  unarchive:
+    src: /tmp/JetBrainsMono.zip
+    dest: /usr/share/fonts/jetbrains-mono
+    remote_src: yes
+
+- name: Set permissions for font files
+  file:
+    path: /usr/share/fonts/jetbrains-mono
+    owner: root
+    group: root
+    mode: '0755'
+    recurse: yes
+
+- name: Rebuild font cache
+  command: fc-cache -fv
+
