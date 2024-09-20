@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/wsams/popos-playbook/compare/v1.0.0...v1.1.0) (2024-09-20)
+
+
+### Features
+
+* Update README ([71d511d](https://github.com/wsams/popos-playbook/commit/71d511d648c93c187bc2b1ab21d18cb8108b9c52))
+
 ## 1.0.0 (2024-09-20)
 
 
