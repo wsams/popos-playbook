@@ -1,0 +1,31 @@
+name: Lint Ansible Playbook
+
+on:
+  push:
+    branches:
+      - 'feat/*'
+  pull_request:
+    branches:
+      - 'feat/*'
+
+jobs:
+  lint:
+    name: Lint Ansible Playbook
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.1.7
+
+      - name: Set up Python
+        uses: actions/setup-python@v5.2.0
+        with:
+          python-version: '3.10'
+
+      - name: Install Ansible and Ansible Lint
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible ansible-lint==5.4.0
+
+      - name: Run ansible-lint
+        run: ansible-lint site.yml

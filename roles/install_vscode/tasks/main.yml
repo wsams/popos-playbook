@@ -9,21 +9,20 @@
     repo: "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
     state: present
     filename: "vscode"
-  become: yes
+  become: true
 
 - name: Update apt package index
   apt:
-    update_cache: yes
+    update_cache: true
 
 - name: Install Visual Studio Code
   apt:
     name: code
     state: present
-  become: yes
+  become: true
 
 - name: Ensure the VSCode command line tool is available
   command: which code
   register: code_installed
   failed_when: code_installed.rc != 0
   changed_when: false
-

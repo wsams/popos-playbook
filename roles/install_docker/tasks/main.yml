@@ -18,10 +18,10 @@
   service:
     name: docker
     state: started
-    enabled: yes
+    enabled: true
 
 - name: Add the current user to the Docker group
   user:
     name: "{{ ansible_env.USER }}"
     groups: docker
-    append: yes
+    append: true

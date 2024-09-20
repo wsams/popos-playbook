@@ -12,10 +12,9 @@
 
 - name: Update apt cache
   apt:
-    update_cache: yes
+    update_cache: true
 
 - name: Install Signal Messenger
   apt:
     name: signal-desktop
     state: present
-

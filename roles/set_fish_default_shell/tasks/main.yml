@@ -4,4 +4,3 @@
     name: "{{ ansible_env.USER }}"
     shell: /usr/bin/fish
     update_password: on_create
-
