@@ -1,0 +1,24 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Release using release-please
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3.1
+
+      - name: Run release-please
+        uses: google-github-actions/release-please-action@v4.0.0
+        with:
+          release-type: ansible
+          package-name: popos-playbook
+        env:
+          GITHUB_TOKEN: ${{ secrets.Z_GITHUB_TOKEN }}
+
