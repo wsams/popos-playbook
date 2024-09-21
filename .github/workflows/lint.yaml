@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - 'feat/*'
+      - 'fix/*'
   pull_request:
     branches:
       - 'feat/*'
+      - 'fix/*'
 
 jobs:
   lint:
@@ -28,4 +30,4 @@ jobs:
           pip install ansible ansible-lint==5.4.0
 
       - name: Run ansible-lint
-        run: echo ansible-lint site.yml
+        run: ansible-lint site.yml
