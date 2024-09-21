@@ -1,4 +1,4 @@
-name: Lint Ansible Playbook
+name: Lint playbook
 
 on:
   push:
