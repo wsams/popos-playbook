@@ -12,3 +12,4 @@
     - role: install_signal_messenger
     - role: install_docker
     - role: install_kubernetes
+    - role: install_k9s
