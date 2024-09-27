@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/wsams/popos-playbook/compare/v1.2.0...v1.3.0) (2024-09-27)
+
+
+### Features
+
+* lint ([bd5b198](https://github.com/wsams/popos-playbook/commit/bd5b198bc118d5a8b4dc12184b6730fa227ceeec))
+
 ## [1.2.0](https://github.com/wsams/popos-playbook/compare/v1.1.0...v1.2.0) (2024-09-20)
 
 
