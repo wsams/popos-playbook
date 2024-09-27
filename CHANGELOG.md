@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/wsams/popos-playbook/compare/v1.3.0...v1.3.1) (2024-09-27)
+
+
+### Bug Fixes
+
+* move install kubernetes to last ([ba3e5d1](https://github.com/wsams/popos-playbook/commit/ba3e5d132cfa517ee76577becb3656b29c85117d))
+
 ## [1.3.0](https://github.com/wsams/popos-playbook/compare/v1.2.0...v1.3.0) (2024-09-27)
 
 
