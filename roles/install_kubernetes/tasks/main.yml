@@ -65,8 +65,14 @@
         - role: worker
           image: kindest/node:v1.26.0
 
-- name: Create kind cluster using configuration
+- name: Check if kind cluster already exists
+  command: kind get clusters
+  register: kind_clusters
+  changed_when: false
+
+- name: Create kind cluster using configuration (if not exists)
   shell: kind create cluster --config /tmp/kind-cluster-config.yaml
+  when: "'kind' not in kind_clusters.stdout_lines"
 
 - name: Install Traefik Helm repo
   shell: |
@@ -76,7 +82,7 @@
 - name: Install Traefik ingress controller
   shell: |
     kubectl create namespace traefik || true
-    helm install traefik traefik/traefik --namespace traefik
+    helm upgrade traefik traefik/traefik --namespace traefik --install
 
 - name: Verify the cluster nodes
   shell: kubectl get nodes
