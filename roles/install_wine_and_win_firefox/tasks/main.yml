@@ -1,0 +1,78 @@
+---
+- name: Add i386 architecture for Wine
+  ansible.builtin.command:
+    cmd: dpkg --add-architecture i386
+  changed_when: false
+
+- name: Download WineHQ key
+  ansible.builtin.apt_key:
+    url: https://dl.winehq.org/wine-builds/winehq.key
+    state: present
+
+- name: Create WineHQ repository directory
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+
+- name: Add WineHQ repository for Ubuntu
+  ansible.builtin.apt_repository:
+    repo: "deb https://dl.winehq.org/wine-builds/ubuntu/ {{ ansible_lsb.codename }} main"
+    state: present
+    filename: 'winehq'
+    update_cache: yes
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install Wine (Stable)
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    install_recommends: yes
+  loop:
+    - winehq-stable
+    - winetricks
+
+- name: Verify Wine installation
+  ansible.builtin.command:
+    cmd: wine --version
+  register: wine_version_output
+
+- name: Display Wine version
+  ansible.builtin.debug:
+    msg: "Wine Version: {{ wine_version_output.stdout }}"
+
+- name: Download Firefox Windows installer
+  ansible.builtin.get_url:
+    url: "https://download.mozilla.org/?product=firefox-latest-ssl&os=win&lang=en-US"
+    dest: /tmp/firefox-setup.exe
+
+- name: Install Firefox using Wine
+  ansible.builtin.command:
+    cmd: wine /tmp/firefox-setup.exe
+  args:
+    creates: "~/.wine/drive_c/Program Files/Mozilla Firefox/firefox.exe"
+
+- name: Create a Firefox desktop shortcut
+  ansible.builtin.file:
+    path: ~/.local/share/applications/firefox-wine.desktop
+    state: touch
+
+- name: Add Firefox shortcut content
+  ansible.builtin.copy:
+    dest: ~/.local/share/applications/firefox-wine.desktop
+    content: |
+      [Desktop Entry]
+      Name=Firefox (Wine)
+      Exec=wine "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+      Type=Application
+      Icon=firefox
+      Categories=Network;WebBrowser;
+
+- name: Clean up the Firefox installer
+  ansible.builtin.file:
+    path: /tmp/firefox-setup.exe
+    state: absent
+

@@ -13,3 +13,4 @@
     - role: install_docker
     - role: install_kubernetes
     - role: install_k9s
+    - role: install_wine_and_win_firefox
