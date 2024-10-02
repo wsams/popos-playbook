@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.4.0](https://github.com/wsams/popos-playbook/compare/v1.3.1...v1.4.0) (2024-10-02)
+
+
+### Features
+
+* install k9s ([cb8bf27](https://github.com/wsams/popos-playbook/commit/cb8bf27ddfed3ad2984337ea5819699b0a821fad))
+* install k9s ([4f8962f](https://github.com/wsams/popos-playbook/commit/4f8962f4f6133d29d4480ab95f8be4fd5b94f4c1))
+* Install wine and Firefox ([93a4c8b](https://github.com/wsams/popos-playbook/commit/93a4c8b7630206ab3db616ac01218fbe998fd1b2))
+* Manage ArgoCD installation ([5383827](https://github.com/wsams/popos-playbook/commit/538382721c6fe524091ed64fda0cdc4c2c777c3a))
+
 ## [1.3.1](https://github.com/wsams/popos-playbook/compare/v1.3.0...v1.3.1) (2024-09-27)
 
 
