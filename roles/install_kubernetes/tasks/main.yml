@@ -93,4 +93,3 @@
 - name: Print success message
   debug:
     msg: "Kubernetes 1.26 cluster setup with Traefik Ingress controller completed successfully!"
-

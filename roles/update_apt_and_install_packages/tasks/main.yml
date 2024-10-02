@@ -18,6 +18,7 @@
       - gnome-tweaks
       - inkscape
       - pavucontrol
+      - python3
       - shutter
       - software-properties-common
       - steam
@@ -25,3 +26,13 @@
       - vim
       - vlc
     state: present
+
+- name: Install pip3
+  apt:
+    name: python3-pip
+    state: present
+
+- name: Install Python 'kubernetes' library
+  pip:
+    name: kubernetes
+    executable: pip3

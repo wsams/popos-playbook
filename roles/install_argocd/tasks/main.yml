@@ -1,0 +1,20 @@
+---
+- name: Create argocd namespace if it doesn't exist
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: argocd
+
+- name: Download ArgoCD installation manifest
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+    dest: /tmp/argocd-install.yaml
+
+- name: Apply ArgoCD manifest
+  kubernetes.core.k8s:
+    state: present
+    src: /tmp/argocd-install.yaml
+    namespace: argocd
