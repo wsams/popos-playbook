@@ -17,6 +17,25 @@
     - ca-certificates
     - software-properties-common
 
+- name: Ensure sysctl configuration exists for inotify watches and instances
+  lineinfile:
+    path: /etc/sysctl.conf
+    regexp: '^fs\.inotify\.max_user_watches'
+    line: 'fs.inotify.max_user_watches = 524288'
+    state: present
+
+- name: Ensure sysctl configuration exists for inotify instances
+  lineinfile:
+    path: /etc/sysctl.conf
+    regexp: '^fs\.inotify\.max_user_instances'
+    line: 'fs.inotify.max_user_instances = 512'
+    state: present
+
+- name: Apply sysctl settings
+  command: sysctl -p
+  register: sysctl_apply
+  changed_when: "'fs.inotify.max_user_watches = 524288' in sysctl_apply.stdout"
+
 - name: Download and install kind
   get_url:
     url: https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
@@ -55,6 +74,12 @@
       apiVersion: kind.x-k8s.io/v1alpha4
       nodes:
         - role: control-plane
+          image: kindest/node:v1.26.0
+        - role: worker
+          image: kindest/node:v1.26.0
+        - role: worker
+          image: kindest/node:v1.26.0
+        - role: worker
           image: kindest/node:v1.26.0
         - role: worker
           image: kindest/node:v1.26.0

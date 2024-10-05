@@ -1,0 +1,137 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vault-rolling-restart-script
+data:
+  vault_rolling_restart.sh: |
+    #!/bin/bash
+    set -e
+
+    VAULT_TOKEN="${VAULT_TOKEN}"
+    NAMESPACE="${NAMESPACE:-vault}"
+    LABEL_SELECTOR="${LABEL_SELECTOR:-app.kubernetes.io/name=vault}"
+    RECOVERY_KEY="${RECOVERY_KEY}"
+
+    if [ -z "$VAULT_TOKEN" ]; then
+        echo "[FATAL] VAULT_TOKEN environment variable is required."
+        exit 1
+    fi
+
+    if [ -z "$RECOVERY_KEY" ]; then
+        echo "[FATAL] RECOVERY_KEY environment variable is required."
+        exit 1
+    fi
+
+    get_num_ready_pods() {
+        kubectl get pods -n "$NAMESPACE" -l "$LABEL_SELECTOR" -o jsonpath='{.items[*].status.conditions[?(@.type=="Ready")].status}' | tr ' ' '\n' | grep -c 'True'
+    }
+
+    get_total_pods() {
+        kubectl get pods -n "$NAMESPACE" -l "$LABEL_SELECTOR" --no-headers | wc -l
+    }
+
+    wait_for_pod_to_exist() {
+        local pod_name=$1
+        while true; do
+            if kubectl get pod "$pod_name" -n "$NAMESPACE" >/dev/null 2>&1; then
+                echo "[INFO] Pod $pod_name has been recreated."
+                break
+            else
+                echo "[INFO] Waiting for pod $pod_name to be recreated..."
+                sleep 1
+            fi
+        done
+    }
+
+    wait_for_pod_running() {
+        local pod_name=$1
+        while true; do
+            phase=$(kubectl get pod "$pod_name" -n "$NAMESPACE" -o jsonpath='{.status.phase}' 2>/dev/null || echo "Unknown")
+            if [ "$phase" == "Running" ]; then
+                echo "[INFO] Pod $pod_name is in Running phase."
+                break
+            else
+                echo "[INFO] Waiting for pod $pod_name to reach Running phase..."
+                sleep 1
+            fi
+        done
+    }
+
+    wait_for_pod_ready() {
+        local pod_name=$1
+        while true; do
+            ready_status=$(kubectl get pod "$pod_name" -n "$NAMESPACE" -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}' 2>/dev/null || echo "False")
+            if [ "$ready_status" == "True" ]; then
+                echo "[INFO] Pod $pod_name is running and ready."
+                break
+            else
+                echo "[INFO] Waiting for pod $pod_name to be ready..."
+                sleep 1
+            fi
+        done
+    }
+
+    unseal_pod() {
+        local pod_name=$1
+        echo "[INFO] Unsealing pod $pod_name..."
+        kubectl exec -n "$NAMESPACE" "$pod_name" -- vault operator unseal "$RECOVERY_KEY"
+    }
+
+    delete_pod() {
+        local pod=$1
+        kubectl delete pod -n "$NAMESPACE" "$pod"
+        wait_for_pod_to_exist "$pod"
+        wait_for_pod_running "$pod"
+        unseal_pod "$pod"
+        wait_for_pod_ready "$pod"
+    }
+
+    get_active_pod() {
+        kubectl get pods -n vault -l "$LABEL_SELECTOR,vault-active=true" -o jsonpath='{.items[0].metadata.name}'
+    }
+
+    get_standby_pods() {
+        kubectl get pods -n "$NAMESPACE" -l "$LABEL_SELECTOR,vault-active!=true" -o jsonpath='{.items[*].metadata.name}'
+    }
+
+    gather_pods() {
+        active_pod=$(get_active_pod)
+        standby_pods=$(get_standby_pods)
+        if [ -z "$active_pod" ]; then
+            echo "[FATAL] No active pod found."
+            exit 1
+        else
+            echo "[INFO] Active pod: $active_pod"
+        fi
+    }
+
+    total_pods=$(get_total_pods)
+    pods=($(kubectl get pods -n "$NAMESPACE" -l "$LABEL_SELECTOR" -o jsonpath='{.items[*].metadata.name}'))
+    gather_pods
+    echo "[INFO] Standby pods: ${standby_pods[@]}"
+
+    for pod in ${standby_pods}; do
+        echo "[INFO] Pod $pod is standby. Deleting..."
+        delete_pod "$pod"
+    done
+
+    echo "[INFO] Stepping down active pod $active_pod..."
+    MAX_RETRIES=10
+    RETRY_DELAY=5
+    for ((i=1;i<=MAX_RETRIES;i++)); do
+        kubectl exec -n "$NAMESPACE" "$active_pod" -- sh -c "VAULT_TOKEN=\"$VAULT_TOKEN\" vault operator step-down" && break
+        echo "[INFO] Retrying in $RETRY_DELAY seconds... ($i/$MAX_RETRIES)"
+        sleep $RETRY_DELAY
+    done || { echo "[FATAL] Failed to step down Vault after $MAX_RETRIES attempts."; exit 1; }
+
+    new_active_pod=""
+    while [ -z "$new_active_pod" ]; do
+        new_active_pod=$(get_active_pod)
+        sleep 1
+    done
+
+    echo "[INFO] Deleting old active pod $active_pod..."
+    delete_pod "$active_pod"
+
+    gather_pods
+    echo "[INFO] Vault has been restarted!"

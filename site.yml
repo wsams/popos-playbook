@@ -17,5 +17,7 @@
     - role: install_docker
     - role: install_kubernetes
     - role: install_k9s
-    - role: install_wine_and_win_firefox
+    - role: install_stern
+    # Requires interaction with the ansible process to finish the Firefox installation.
+    #- role: install_wine_and_win_firefox
     - role: install_argocd

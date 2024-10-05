@@ -1,0 +1,10 @@
+apiVersion: v2
+name: vault-wrapper
+version: 0.1.0
+description: A wrapper chart for Vault with custom hooks
+appVersion: 1.17.2
+
+dependencies:
+  - name: vault
+    version: "0.28.1"  # Use the version of the Vault chart you want
+    repository: "https://helm.releases.hashicorp.com"
