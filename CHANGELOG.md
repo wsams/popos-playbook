@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.6.0](https://github.com/wsams/popos-playbook/compare/v1.5.1...v1.6.0) (2024-10-06)
+
+
+### Features
+
+* Add ArgoCD config for Vault ([24552be](https://github.com/wsams/popos-playbook/commit/24552bea46d9bf23043a11181c07edc9ffc857f2))
+
+
+### Bug Fixes
+
+* Add sandbox.yaml ([d51b03b](https://github.com/wsams/popos-playbook/commit/d51b03b5fae3a336eaaf613b37c03314df15d4b7))
+* Fix values syntax ([23ceede](https://github.com/wsams/popos-playbook/commit/23ceede4c0fc60a78feabca845b89b1c3e471cc3))
+
 ## [1.5.1](https://github.com/wsams/popos-playbook/compare/v1.5.0...v1.5.1) (2024-10-06)
 
 
