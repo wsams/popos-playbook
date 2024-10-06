@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.5.0](https://github.com/wsams/popos-playbook/compare/v1.4.0...v1.5.0) (2024-10-06)
+
+
+### Features
+
+* Vault features ([a0d2e97](https://github.com/wsams/popos-playbook/commit/a0d2e97054ef3d6a41581e2e3f98c9ecd49a4e94))
+* Vault features ([d400d71](https://github.com/wsams/popos-playbook/commit/d400d71b492148535205badea4b044933976ce35))
+
+
+### Bug Fixes
+
+* fix workflow ([97aa0f8](https://github.com/wsams/popos-playbook/commit/97aa0f87ddf4440a4fa345910825882bb274bd0f))
+* fix workflow ([de86035](https://github.com/wsams/popos-playbook/commit/de86035884c60d185931ef6bc4a103f40a078cc6))
+
 ## [1.4.0](https://github.com/wsams/popos-playbook/compare/v1.3.1...v1.4.0) (2024-10-02)
 
 
