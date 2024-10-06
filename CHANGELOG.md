@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/wsams/popos-playbook/compare/v1.5.0...v1.5.1) (2024-10-06)
+
+
+### Bug Fixes
+
+* Build image ([26d526d](https://github.com/wsams/popos-playbook/commit/26d526dcfb668c5534451fe26e5390ec0fa0a2ab))
+
 ## [1.5.0](https://github.com/wsams/popos-playbook/compare/v1.4.0...v1.5.0) (2024-10-06)
 
 
