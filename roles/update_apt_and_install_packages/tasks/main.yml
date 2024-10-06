@@ -17,12 +17,14 @@
       - git
       - gnome-tweaks
       - inkscape
+      - jq
       - pavucontrol
       - python3
       - shutter
       - software-properties-common
       - steam
       - steam-devices
+      - tar
       - vim
       - vlc
     state: present

@@ -1,0 +1,42 @@
+{{ if .Values.job.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: vault-rolling-restart
+  annotations:
+    "helm.sh/hook": post-upgrade
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    metadata:
+      name: vault-rolling-restart
+    spec:
+      serviceAccountName: vault-rolling-restart-sa
+      restartPolicy: Never
+      containers:
+        - name: vault-rolling-restart
+          image: wsams/bitnami-kubectl:latest
+          env:
+            - name: VAULT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: vault-operator-token
+                  key: token
+            - name: RECOVERY_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: vault-operator-recovery-key
+                  key: key
+          volumeMounts:
+            - name: script-volume
+              mountPath: /scripts/vault_rolling_restart.sh
+              subPath: vault_rolling_restart.sh
+          command:
+            - "bash"
+            - "/scripts/vault_rolling_restart.sh"
+      volumes:
+        - name: script-volume
+          configMap:
+            name: vault-rolling-restart-script
+{{ end }}

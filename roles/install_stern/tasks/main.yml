@@ -1,0 +1,33 @@
+---
+- name: Set stern version
+  set_fact:
+    stern_version: "1.24.0"
+
+- name: Download stern binary
+  get_url:
+    url: "https://github.com/stern/stern/releases/download/v{{ stern_version }}/stern_{{ stern_version }}_linux_amd64.tar.gz"
+    dest: "/tmp/stern_{{ stern_version }}_linux_amd64.tar.gz"
+    mode: '0755'
+
+- name: Extract stern binary
+  unarchive:
+    src: "/tmp/stern_{{ stern_version }}_linux_amd64.tar.gz"
+    dest: /tmp/
+    remote_src: yes
+
+- name: Move stern binary to /usr/local/bin
+  copy:
+    src: "/tmp/stern"
+    dest: "/usr/local/bin/stern"
+    mode: '0755'
+
+- name: Ensure stern is executable
+  file:
+    path: "/usr/local/bin/stern"
+    mode: '0755'
+    state: file
+
+- name: Clean up temporary files
+  file:
+    path: "/tmp/stern_{{ stern_version }}_linux_amd64.tar.gz"
+    state: absent
