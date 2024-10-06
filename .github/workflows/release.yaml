@@ -41,7 +41,5 @@ jobs:
         with:
           context: vault/image
           push: true
-          tags: |
-            wsams/bitnami-kubectl:latest
-            wsams/bitnami-kubectl:${{ steps.release.outputs.release-version }}
+          tags: wsams/bitnami-kubectl:latest,wsams/bitnami-kubectl:${{ steps.release.outputs.release-version }}
 
