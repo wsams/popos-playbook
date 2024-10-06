@@ -18,3 +18,7 @@
     state: present
     src: /tmp/argocd-install.yaml
     namespace: argocd
+
+- name: Install Vault ArgoCD Application
+  shell: |
+    kubectl apply -f argocd/vault-sandbox.yaml -n argocd

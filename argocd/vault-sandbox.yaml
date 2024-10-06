@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/wsams/popos-playbook
+    targetRevision: main
+    path: vault
+    helm:
+      valueFiles:
+        - values.yaml
+        - sandbox.yaml
+      parameters:
+        - name: job.enabled
+          value: "false"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: vault
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
