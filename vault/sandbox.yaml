@@ -6,7 +6,6 @@ vault:
       raft:
         enabled: true
         setNodeId: true
-vault:
   injector:
     enabled: false
 job:
