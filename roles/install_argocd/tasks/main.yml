@@ -22,3 +22,7 @@
 - name: Install Vault ArgoCD Application
   shell: |
     kubectl apply -f argocd/vault-sandbox.yaml -n argocd
+
+- name: Install Traefik ArgoCD Application
+  shell: |
+    kubectl apply -f argocd/traefik-sandbox.yaml -n argocd
