@@ -1,0 +1,13 @@
+vault:
+  server:
+    ha:
+      enabled: true
+      replicas: 5
+      raft:
+        enabled: true
+        setNodeId: true
+vault:
+  injector:
+    enabled: false
+job:
+  enabled: true
