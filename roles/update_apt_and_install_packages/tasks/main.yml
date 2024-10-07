@@ -38,3 +38,8 @@
   pip:
     name: kubernetes
     executable: pip3
+
+- name: Install Python 'openshift' library
+  pip:
+    name: openshift
+    executable: pip3

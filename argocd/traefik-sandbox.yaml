@@ -13,6 +13,8 @@ spec:
       parameters:
         - name: deployment.replicas
           value: "2"
+        - name: service.type
+          value: NodePort
   destination:
     server: https://kubernetes.default.svc
     namespace: traefik
