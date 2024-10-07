@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.0](https://github.com/wsams/popos-playbook/compare/v1.6.0...v1.7.0) (2024-10-07)
+
+
+### Features
+
+* Add MetalLB ([59bfa70](https://github.com/wsams/popos-playbook/commit/59bfa70bfc3b034c1aba9e26284f2463ae15147d))
+* Migrate Traefik to ArgoCD ([e712bc2](https://github.com/wsams/popos-playbook/commit/e712bc216e8758ea83a415bd1d5aef95672f6462))
+
 ## [1.6.0](https://github.com/wsams/popos-playbook/compare/v1.5.1...v1.6.0) (2024-10-06)
 
 
