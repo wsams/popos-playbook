@@ -1,0 +1,11 @@
+version: '3'
+
+tasks:
+  # task run_ansible -- --tags mytag
+  run_ansible:
+    desc: Run the main Ansible playbook
+    cmds:
+      - ansible-playbook site.yml --ask-become-pass {{.ARGS}}
+    silent: true
+    vars:
+      ARGS: ""

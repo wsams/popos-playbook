@@ -20,16 +20,22 @@
     namespace: argocd
 
 - name: Install Vault ArgoCD Application
-  shell: |
-    kubectl apply -f argocd/vault-sandbox.yaml -n argocd
+  kubernetes.core.k8s:
+    state: present
+    src: argocd/vault-sandbox.yaml
+    namespace: argocd
 
 - name: Install Traefik ArgoCD Application
-  shell: |
-    kubectl apply -f argocd/traefik-sandbox.yaml -n argocd
+  kubernetes.core.k8s:
+    state: present
+    src: argocd/traefik-sandbox.yaml
+    namespace: argocd
 
 - name: Install MetalLB ArgoCD Application
-  shell: |
-    kubectl apply -f argocd/metallb-sandbox.yaml -n argocd
+  kubernetes.core.k8s:
+    state: present
+    src: argocd/metallb-sandbox.yaml
+    namespace: argocd
 
 # - name: Generate a random base64-encoded key
 #   ansible.builtin.command: "openssl rand -base64 128"
