@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/wsams/popos-playbook/compare/v1.7.0...v1.8.0) (2024-10-08)
+
+
+### Features
+
+* Add taskfile ([b6828b4](https://github.com/wsams/popos-playbook/commit/b6828b4a5d1ab5f8e4852606c104b1c00311bb64))
+
 ## [1.7.0](https://github.com/wsams/popos-playbook/compare/v1.6.0...v1.7.0) (2024-10-07)
 
 
