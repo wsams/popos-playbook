@@ -1,5 +1,11 @@
 # Setup
 
+This project includes an Ansible playbook for setting up a [Pop!_OS](https://pop.system76.com/) but could probably be adapted for any debian-based system, and most others with a few tweaks.
+
+The playbook installs Kubernetes and deploys ArgoCD and sets up applications for Traefik, ArgoCD, and Hashicorp Vault. It also installes Docker, k9s, Signal, Stern, VSCode, the JetBrains Mono font, and sets Fish Shell as the default. It also manages a set of base packages. The main purpose of this system was for playing Steam games, but it makes a great Kubernetes development machine.
+
+The project is released using GitHub Actions which also builds the [wsams/bitnami-kubectl](https://hub.docker.com/r/wsams/bitnami-kubectl) image.
+
 ## Install dependencies
 
 ```sh
