@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.1](https://github.com/wsams/popos-playbook/compare/v1.8.0...v1.8.1) (2024-10-09)
+
+
+### Bug Fixes
+
+* Disable MetalLB ([5339ea5](https://github.com/wsams/popos-playbook/commit/5339ea5e7f6a69679e8cf082454407f148ca134e))
+* Remove un-needed code ([917d791](https://github.com/wsams/popos-playbook/commit/917d7915033df913a4e8c977e6e56cce3f229f72))
+
 ## [1.8.0](https://github.com/wsams/popos-playbook/compare/v1.7.0...v1.8.0) (2024-10-08)
 
 
