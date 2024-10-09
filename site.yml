@@ -7,30 +7,30 @@
   collections:
     - kubernetes.core
   roles:
-    # - role: generate_timestamp
-    #   tag: generate_timestamp
-    # - role: update_apt_and_install_packages
-    #   tag: update_apt_and_install_packages
-    # - role: set_fish_default_shell
-    #   tag: set_fish_default_shell
-    # - role: override_capslock_to_escape
-    #   tag: override_capslock_to_escape
-    # - role: install_vscode
-    #   tag: install_vscode
-    # - role: install_jetbrains_mono_font
-    #   tag: install_jetbrains_mono_font
-    # - role: install_signal_messenger
-    #   tag: install_signal_messenger
-    # - role: install_docker
-    #   tag: install_docker
-    # - role: install_kubernetes
-    #   tag: install_kubernetes
-    # - role: install_k9s
-    #   tag: install_k9s
-    # - role: install_stern
-    #   tag: install_stern
-    # # Requires interaction with the ansible process to finish the Firefox installation.
-    # #- role: install_wine_and_win_firefox
-    # #- tag: install_wine_and_win_firefox
+    - role: generate_timestamp
+      tag: generate_timestamp
+    - role: update_apt_and_install_packages
+      tag: update_apt_and_install_packages
+    - role: set_fish_default_shell
+      tag: set_fish_default_shell
+    - role: override_capslock_to_escape
+      tag: override_capslock_to_escape
+    - role: install_vscode
+      tag: install_vscode
+    - role: install_jetbrains_mono_font
+      tag: install_jetbrains_mono_font
+    - role: install_signal_messenger
+      tag: install_signal_messenger
+    - role: install_docker
+      tag: install_docker
+    - role: install_kubernetes
+      tag: install_kubernetes
+    - role: install_k9s
+      tag: install_k9s
+    - role: install_stern
+      tag: install_stern
+    # Requires interaction with the ansible process to finish the Firefox installation.
+    #- role: install_wine_and_win_firefox
+    #- tag: install_wine_and_win_firefox
     - role: install_argocd
       tag: install_argocd

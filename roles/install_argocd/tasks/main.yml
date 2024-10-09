@@ -33,7 +33,8 @@
 
 - name: Install MetalLB ArgoCD Application
   kubernetes.core.k8s:
-    state: present
+    # disabled until needed
+    state: absent
     src: argocd/metallb-sandbox.yaml
     namespace: argocd
 

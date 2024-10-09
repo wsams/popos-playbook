@@ -13,9 +13,9 @@ spec:
       releaseName: metallb
       parameters:
         - name: controller.replicaCount
-          value: "2"
+          value: "1"
         - name: speaker.replicaCount
-          value: "2"
+          value: "1"
   destination:
     server: https://kubernetes.default.svc
     namespace: metallb-system
